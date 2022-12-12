@@ -46,7 +46,7 @@ class _AddState extends State<Add> {
               "precio":precio.text
             };
             dioConect(data);
-          //print(data);   //para ver si funciona en la consola de depuracion
+            print(data);   //para ver si funciona en la consola de depuracion
         } ,
         ),
       ]) ,
@@ -57,15 +57,10 @@ class _AddState extends State<Add> {
 }
 
 void dioConect(Map<String, String> data)async {
-  FormData formdata = FormData.fromMap({//para enviar a backend
-    "nombre": data["nombre"],
-    "cantidad": data["cantidad"],
-    "precio": data["precio"],
-  });
 
   Dio dio = Dio();
+  //127.0.0.1
+  var response = await dio.post("http://127.0.0.1:3000/todo/product",data:data);
 
-  final response = await dio.post("http://192.168.0.6:3000/todo/product",data: formdata);
-
-  print(response.data);
+  print(response);
 }
