@@ -7,7 +7,6 @@ class Add extends StatefulWidget {
   @override
   State<Add> createState() => _AddState();
 }
- 
 
 
 class _AddState extends State<Add> {
@@ -21,7 +20,7 @@ class _AddState extends State<Add> {
       title: const Text("agregar"),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(30),
         child: Column(children: [
         TextField(//como el input , para ingresar datos
           controller: nombre, //para que la informacion que coloque el usuario se guarde en este controller
@@ -57,10 +56,8 @@ class _AddState extends State<Add> {
 }
 
 void dioConect(Map<String, String> data)async {
-
   Dio dio = Dio();
-  //127.0.0.1
-  var response = await dio.post("http://127.0.0.1:3000/todo/product",data:data);
 
+  var response = await dio.post("http://127.0.0.1:3000/todo/product",data:data);
   print(response);
 }

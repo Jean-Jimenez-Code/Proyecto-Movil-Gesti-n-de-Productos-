@@ -1,19 +1,49 @@
-import 'package:flu/pages/add.dart';
+import 'package:flu/pages/opc.dart';
 import 'package:flutter/material.dart';
 
-
-void main() {
- runApp(const MyApp());
+void main() {//para iniciar la app
+  runApp(const MyApp());//el nombre del widget
 }
 
-//diseño de la app
 class MyApp extends StatelessWidget {
- const MyApp({super.key});
-
- @override
- Widget build(BuildContext context){
-  return MaterialApp(
-    home:Add(), //importamos el add de pages
-  );
+  const MyApp({super.key});
+@override
+ Widget build(BuildContext context) {
+  return MaterialApp(//el diseño de la pag
+      title: 'Flutter Demo',
+      theme: ThemeData(
+      primarySwatch: Colors.blue,
+    ),
+  home: Scaffold(
+  appBar: AppBar(title: const Text('Inicio')),
+  body: const Inicio()));//mostrara el contenido del widget Inicio 
  }
+}
+
+class Inicio extends StatefulWidget{
+  const Inicio({super.key});
+
+  @override
+  State<Inicio>createState()=> _Inicio();//hacemos un llamado a _Inicio que es lo que tendra el contenido
+}
+
+class _Inicio extends State<Inicio> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(//para la posicion del contenido
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,//que se coloque en el centro
+          children: [
+        ElevatedButton( child: const Text("ingresar"),//el boton , y como se llamara el boton
+        onPressed: ()=>{//onPressed, quiere decir que cuando se precione se ejecutara lo siguiente
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder:(context) =>const opcion())//le decimos a que ruta queremos que se vaya.con el nombre de class de widget de la otra pág
+          )
+        }),     
+      ]) ,
+      ),
+    );
+  }
 }
