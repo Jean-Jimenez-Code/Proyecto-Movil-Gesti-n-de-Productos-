@@ -1,4 +1,5 @@
 import 'package:flu/pages/add.dart';
+import 'package:flu/pages/lista.dart';
 import 'package:flutter/material.dart';
 
 class opcion extends StatefulWidget {
@@ -26,7 +27,12 @@ class _opcion extends State<opcion> {
             MaterialPageRoute(builder:(context) =>const Add())//le decimos a que ruta queremos que se vaya.con el nombre de class de widget de la otra pág
           )
         }),
-        ElevatedButton(onPressed:(){}, child:const Text('ver lista'))
+        ElevatedButton(child:const Text('ver lista'),
+        onPressed:()=>{
+          Navigator.push(context, 
+          MaterialPageRoute(builder: (context)=>const TodoList())
+          )
+        }),
       ]) ,
       ),
       

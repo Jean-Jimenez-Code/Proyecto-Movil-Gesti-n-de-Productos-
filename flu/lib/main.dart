@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       primarySwatch: Colors.blue,
     ),
   home: Scaffold(
-  appBar: AppBar(title: const Text('Inicio')),
+  appBar: AppBar(title: const Text('Bubles')),
   body: const Inicio()));//mostrara el contenido del widget Inicio 
  }
 }
