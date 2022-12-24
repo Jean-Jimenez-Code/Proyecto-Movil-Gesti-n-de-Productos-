@@ -28,6 +28,8 @@ class Inicio extends StatefulWidget{
 }
 
 class _Inicio extends State<Inicio> {
+   final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +37,22 @@ class _Inicio extends State<Inicio> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,//que se coloque en el centro
           children: [
-        ElevatedButton( child: const Text("ingresar"),//el boton , y como se llamara el boton
-        onPressed: ()=>{//onPressed, quiere decir que cuando se precione se ejecutara lo siguiente
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder:(context) =>const opcion())//le decimos a que ruta queremos que se vaya.con el nombre de class de widget de la otra pág
-          )
-        }),     
+            TextField(
+              obscureText: true,
+              controller: _passwordController,
+              decoration: InputDecoration(
+              labelText: 'Contraseña',
+              ),
+            ),
+           ElevatedButton( child: const Text("ingresar"),//el boton , y como se llamara el boton
+             onPressed: ()=>{
+             if(_passwordController.text =='12345'){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder:(context) =>const opcion())//le decimos a que ruta queremos que se vaya.con el nombre de class de widget de la otra pág
+              )
+             }//onPressed, quiere decir que cuando se precione se ejecutara lo siguiente
+          }),     
       ]) ,
       ),
     );

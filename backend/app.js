@@ -7,6 +7,7 @@ var cors=require('cors');
 
 var indexRouter = require('./routes/index');
 var todoRouter = require('./routes/todo');
+var borrarRouter = require('./routes/borrar');
 const connectDB = require('./config/dbconnect');
 
 var app = express();
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use(require('./routes/todo'));
 app.use('/', indexRouter);
 app.use('/todo', todoRouter);
+app.use('/borrar', borrarRouter);
 
 
 module.exports = app;

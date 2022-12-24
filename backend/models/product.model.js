@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const { Buffer } = require('buffer');
 
 const ProdSchema = new Schema( //se asignara los atributos a las variables
   {
@@ -11,6 +12,9 @@ const ProdSchema = new Schema( //se asignara los atributos a las variables
     },
     precio: {
         type: String,
+    },
+    imagen:{
+       type:String,
     } 
   },
   { timestamps: true },
