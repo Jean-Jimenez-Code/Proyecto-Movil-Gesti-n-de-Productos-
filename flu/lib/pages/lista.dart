@@ -1,15 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter/widgets.dart';
 import 'dart:typed_data';
-import 'dart:convert';
+
 
 class TodoList extends StatefulWidget {
  const TodoList({super.key});
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
   @override
-  
  State<TodoList> createState() => _TodoListState();
 }
  
@@ -19,7 +16,7 @@ class _TodoListState extends State<TodoList> {
  
   Future<Map> getTodoList() async {
   try {
-    var response = await Dio().get(('http://10.0.2.2:3000 /todo/product'));
+    var response = await Dio().get(('http://10.0.2.2:3000/todo/product'));//resivimos los datos del api
     print(response.data);
     
     return response.data;
@@ -30,7 +27,7 @@ class _TodoListState extends State<TodoList> {
 
   Future<void> deleteElement(nom) async {
   final dio = Dio();
-  final response = await dio.post('http://10.0.2.2:3000 /borrar/product',data:{'nom':nom});
+  final response = await dio.post('http://10.0.2.2:3000/borrar/product',data:{'nom':nom});//enviamos un dato para que cuando el api lo resiva borre los elementos del dato que enviamos
   print(response.data);
   }
  
@@ -47,46 +44,45 @@ class _TodoListState extends State<TodoList> {
         future: getTodoList(),
       builder: (BuildContext context, AsyncSnapshot<Map> snap) {
        
-      if (snap.hasData) {
+      if (snap.hasData) {//se ejecutara esto si la base de datos no es nula
       var data = snap.data;
       var entries = [];
-      print(data);
+
       if (data != null) {
-        entries = data['list'];
+        entries = data['list'];//entries buscara el nombre de la lista del array del api en este caso el que se llame list
       }
       return ListView.builder(
       padding: const EdgeInsets.all(8),
-      itemCount: entries.length,
+      itemCount: entries.length,//ira pasando por todo el array 
       itemBuilder: ( context,  index) {
-      String base64=(entries[index]['imagen']);
-      final UriData dat = UriData.parse(base64);
-      //List<int> imageBytes = base64Decode(entries[index]['imagen']);
+      String base64=(entries[index]['imagen']);//buscara cada cadena de imagen  
+      final UriData dat = UriData.parse(base64);//la transformara para mostrarla
       Uint8List im = dat.contentAsBytes();
-      String nom = entries[index]['nombre'];
+
+      String nom = entries[index]['nombre'];//pasara por cada array y guardara el nombre en la variable nom
       return Padding(//padding es para que luego se pueda dejar una cierta distancia entre valores
         padding: const EdgeInsets.all(10.0),
         child:Row(//para que se queden en el centro
           children:[
             Container(
-              width: 100,
+              width: 100,//las dimensiones de la imagen
               height: 100,
               child: Image.memory(im, fit: BoxFit.cover),
             ),
-            Text (' ${entries[index]['nombre']}  ${entries[index]['cantidad']}  ${entries[index]['precio']}'),
+            Text (' nombre : ${entries[index]['nombre']} \n  cantidad: ${entries[index]['cantidad']} \n  precio: ${entries[index]['precio']} '),//pasara por cada elemento y los mostrara 
             IconButton(
-              icon: Icon(Icons.delete, color:Colors.red),
+              icon: Icon(Icons.delete, color:Colors.red),//mostrara un boton para que se puedan eliminar elementos
               onPressed:() async {
-              await deleteElement(nom);
+              await deleteElement(nom);//se borrara el elemento guardado en nom dependiendo de la posicion en la que esta el boton a precionar(ya que dependiendo de la posicion existe un valor diferente guardado en nom)
               setState(() {
-              entries.removeAt(index);
+              entries.removeAt(index);//quitara el elemento segun la posicion
             });
          },),],          
-         // para que se muestre el nombre y precio
         )
       );
       });
       } else {
-        return Center(child: Text('Errorr'));
+        return Center(child: Text('Buscando Elementos'));
        }
     }),
     ),

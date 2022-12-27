@@ -3,10 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:convert';
-import 'package:image/image.dart' as img;
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-//flutter pub get
 
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class Add extends StatefulWidget {
   const Add({super.key});
@@ -16,27 +14,12 @@ class Add extends StatefulWidget {
 }
 File? images;
 String? image64;
-String?nombreim;
+String? nombreim;
 
 class _AddState extends State<Add> {
-  TextEditingController nombre = TextEditingController();
+  TextEditingController nombre = TextEditingController(); //lo que hace que se pueda guardar lo que se ingrese en nombre
   TextEditingController cantidad = TextEditingController();
   TextEditingController precio = TextEditingController();
-      //if (pathIma != null){
-     // List<int> pathImage = img.encodeJpg(pathIma, quality:50 );
-    //  print(pathImage);
-     // final nameImage=(pathImage.toString()).split('/').last.split("'")[0];
-    //  final formtoimage = (pathImage.toString()).split('.').last.split("'")[0];
-     // final bitimage=pathImage.readAsBytesSync();
-    //  final base64=base64Encode(pathImage);
-     // String Imagefial="data:image/$formtoimage;base64,$base64";
-    //  nombreim = nameImage;
-     // image64=Imagefial; 
-      //final pathImage = File(picture.path);
-
-    
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -49,22 +32,23 @@ class _AddState extends State<Add> {
         child: Column(children: [
         TextField(//como el input , para ingresar datos
           controller: nombre, //para que la informacion que coloque el usuario se guarde en este controller
-          decoration: InputDecoration(labelText: "nombre"),
+          decoration: InputDecoration(labelText: "nombre"),//el campo que diga nombre
         ),
         TextField(
           controller:cantidad ,
           decoration: InputDecoration(labelText: "cantidad"),
+          keyboardType: TextInputType.number,//que solo se muestre el teclado de numeros
           ),
         TextField(
           controller:precio ,
           decoration: InputDecoration(labelText: "precio"),
+          keyboardType: TextInputType.number,
           //keyboardType: TextInputType.number,//para que se ingresen solo numeros
           ),
         ElevatedButton(child: const Text("imagen"),
         onPressed: () async {
               // Carga la imagen desde la galería
-              var picture = await ImagePicker().pickImage(source: ImageSource.gallery);
-
+              var picture = await ImagePicker().pickImage(source: ImageSource.gallery);//al precionar el boton este ira a la galeria para seleccionar una foto
               if (picture == null) {
                 // Si no se ha seleccionado ninguna imagen, no hacemos nada
                 return;
@@ -73,7 +57,7 @@ class _AddState extends State<Add> {
               // Comprime la imagen
               var compressedImage;
               String format = picture.path.split('.').last;
-              if (format == "png") {
+              if (format == "png") {//si la imagen es formato png se comprimira para transformarla en base64
                 compressedImage = await FlutterImageCompress.compressWithFile(
                   picture.path,
                   minWidth: 200,
@@ -87,22 +71,9 @@ class _AddState extends State<Add> {
                 );
               }
               // Codifica la imagen comprimida en base64
-              final base64 = base64Encode(compressedImage);
-              String image64 = "data:image/$format;base64,$base64";
-              nombreim =image64;
-            
-               //if (pathIma != null){
-     // List<int> pathImage = img.encodeJpg(pathIma, quality:50 );
-    //  print(pathImage);
-     // final nameImage=(pathImage.toString()).split('/').last.split("'")[0];
-    //  final formtoimage = (pathImage.toString()).split('.').last.split("'")[0];
-     // final bitimage=pathImage.readAsBytesSync();
-    //  final base64=base64Encode(pathImage);
-     // String Imagefial="data:image/$formtoimage;base64,$base64";
-    //  nombreim = nameImage;
-     // image64=Imagefial; 
-      //final pathImage = File(picture.path);
-
+              final base64 = base64Encode(compressedImage);//se transforma la imagen ya comprimida a base64
+              String image64 = "data:image/$format;base64,$base64";//se crea la cadena final de base64
+              nombreim =image64;//se guarda la cadena en la variable nombreim
           },
         ),
         ElevatedButton(
@@ -113,12 +84,12 @@ class _AddState extends State<Add> {
               "cantidad":cantidad.text,
               "precio":precio.text
             };
-            dioConect(nombreim,data);
+            dioConect(nombreim,data);//los datos guardados en nombreim y data se envian a dioConect para enviarlos a la base de datos
             print(nombreim);   //para ver si funciona en la consola de depuracion
         } ,
         ),
         images != null
-        ? Image.file(
+        ? Image.file(//mostrar la imagen de flutter
           images!,
           width: 200,
           height: 200,
@@ -135,11 +106,11 @@ class _AddState extends State<Add> {
 }
 
 
-void dioConect( image64, data)async {
-  Dio dio = Dio();
+void dioConect( image64, data)async {//resivir image64 y data del boton
   
+Dio dio = Dio();
 
-  final response = await dio.post("http://10.0.2.2:3000/todo/product",data:{
+  final response = await dio.post("http://10.0.2.2:3000/todo/product",data:{//en data colocamos los datos que queremos enviar
     "imagen":image64,
     "nombre":data["nombre"],
     "precio":data["precio"],

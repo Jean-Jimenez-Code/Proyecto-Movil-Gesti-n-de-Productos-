@@ -45,13 +45,13 @@ class _Inicio extends State<Inicio> {
               ),
             ),
            ElevatedButton( child: const Text("ingresar"),//el boton , y como se llamara el boton
-             onPressed: ()=>{
-             if(_passwordController.text =='12345'){
+             onPressed: ()=>{//onPressed, quiere decir que cuando se precione se ejecutara lo siguiente
+             if(_passwordController.text =='12345'){//definimos una contraseña
               Navigator.push(
                 context,
-                MaterialPageRoute(builder:(context) =>const opcion())//le decimos a que ruta queremos que se vaya.con el nombre de class de widget de la otra pág
+                MaterialPageRoute(builder:(context) =>const opcion())//le decimos a que ruta queremos que se vaya.con el nombre de class de widget de la otra pág en este caso 'opcion'
               )
-             }//onPressed, quiere decir que cuando se precione se ejecutara lo siguiente
+             }
           }),     
       ]) ,
       ),
