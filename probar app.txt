@@ -1,0 +1,17 @@
+para probar aplicacion:
+1-abrir simulador de telefono desde visual studio.para esto puede hacer lo siguiente:
+    1.ir a la pestaña de view y seleccionar command palette.
+    2.buscar(escribir) Flutter:Select Device.
+    3.saldran opciones como windows,chrome,edge como principales , tambien las opciones , 
+      Start pixel_3a(que seria el emulador) seleccionamos el emulador y esperamos a que inicie.
+
+2-en el terminal seleccionar cd backend , que entrara a la carpeta de backend en el que esta la aplicacion
+3-colocar en esa terminal "docker-compose up -d" para  iniciar docker (asegurarse de tener instalado docker antes)
+4-colocar "npm run start" ,que ejecutara todo el backend, y asi ejecutara mongodb 
+  (asegurarse de tener instalado mongodb(si no, puede colocar npm install mongoose)),si se ejecuto bien saldra "MongoDB connected !!"
+5-luego de tener el backend ejecutandose dirigirse en otro terminal a la carpeta donde se encuentra el archivo de flutter
+  por ejemplo "cd flu"
+6-luego de tener el simulador ejecutandose junto con el backend , colocar en la nueva terminal "flutter run" esto ejecutara flutter
+  en el simulador. si esto no ejecuta, dirigirse al archivo de flutter desde visual studio y presionar f5 , esto ejecutara flutter en 
+  el simulador
+7-probar app , (la contraseña del login es "12345").
