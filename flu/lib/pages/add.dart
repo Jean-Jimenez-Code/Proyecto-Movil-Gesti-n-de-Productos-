@@ -47,8 +47,8 @@ class _AddState extends State<Add> {
           ),
         ElevatedButton(child: const Text("imagen"),
         onPressed: () async {
-              // Carga la imagen desde la galería
-              var picture = await ImagePicker().pickImage(source: ImageSource.gallery);//al precionar el boton este ira a la galeria para seleccionar una foto
+              // Carga la imagen desde camara
+              var picture = await ImagePicker().pickImage(source: ImageSource.camera);//al precionar el boton este ira a la camara para seleccionar una foto
               if (picture == null) {
                 // Si no se ha seleccionado ninguna imagen, no hacemos nada
                 return;
@@ -58,7 +58,37 @@ class _AddState extends State<Add> {
               var compressedImage;
               String format = picture.path.split('.').last;
               if (format == "png") {//si la imagen es formato png se comprimira para transformarla en base64
-                compressedImage = await FlutterImageCompress.compressWithFile(
+                compressedImage = await FlutterImageCompress.compressWithFile(//comprimimos la imagen para que la base de datos la acepte
+                  picture.path,
+                  minWidth: 200,
+                  minHeight: 200,
+                );
+              } else if (format == "jpg" || format == "jpeg") {
+                compressedImage = await FlutterImageCompress.compressWithList(
+                  File.fromUri(Uri.file(picture.path)).readAsBytesSync(),
+                  minWidth: 200,
+                  minHeight: 200,
+                );
+              }
+              // Codifica la imagen comprimida en base64
+              final base64 = base64Encode(compressedImage);//se transforma la imagen ya comprimida a base64
+              String image64 = "data:image/$format;base64,$base64";//se crea la cadena final de base64
+              nombreim =image64;//se guarda la cadena en la variable nombreim
+          },
+        ),
+        ElevatedButton(child: const Text("galeria"),
+        onPressed: () async {
+              // Carga la imagen desde la galería
+              var picture = await ImagePicker().pickImage(source: ImageSource.gallery);//al precionar el boton este ira a la galeria para seleccionar una foto
+              if (picture == null) {
+                // Si no se ha seleccionado ninguna imagen, no hacemos nada
+                return;
+              }
+              // Comprime la imagen
+              var compressedImage;
+              String format = picture.path.split('.').last;
+              if (format == "png") {//si la imagen es formato png se comprimira para transformarla en base64
+                compressedImage = await FlutterImageCompress.compressWithFile(//comprimimos la imagen para que la base de datos la acepte
                   picture.path,
                   minWidth: 200,
                   minHeight: 200,
