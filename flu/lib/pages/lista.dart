@@ -56,8 +56,8 @@ class _TodoListState extends State<TodoList> {
       itemCount: entries.length,//ira pasando por todo el array 
       itemBuilder: ( context,  index) {
       String base64=(entries[index]['imagen']);//buscara cada cadena de imagen  
-      final UriData dat = UriData.parse(base64);//la transformara para mostrarla
-      Uint8List im = dat.contentAsBytes();
+      final UriData dat = UriData.parse(base64);//la transformara para mostrarla(imagen)
+      Uint8List im = dat.contentAsBytes();//la transformara para mostrarla(imagen)
 
       String nom = entries[index]['nombre'];//pasara por cada array y guardara el nombre en la variable nom
       return Padding(//padding es para que luego se pueda dejar una cierta distancia entre valores

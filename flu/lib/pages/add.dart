@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:convert';
-
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class Add extends StatefulWidget {
@@ -141,12 +140,12 @@ void dioConect( image64, data)async {//resivir image64 y data del boton
 Dio dio = Dio();
 
   final response = await dio.post("http://10.0.2.2:3000/todo/product",data:{//en data colocamos los datos que queremos enviar
-    "imagen":image64,
-    "nombre":data["nombre"],
+    "imagen":image64,//guardamos en la variable los datos de la cadena base64
+    "nombre":data["nombre"],//guardamos en la variable los datos ingresados en el campo nombre
     "precio":data["precio"],
     "cantidad":data["cantidad"],
   },).timeout(const Duration(seconds: 50));
   print(response.data);
 }
-//10.0.2.2:3000  (android)
-//127.0.0.1 (pc)
+//10.0.2.2:3000  (colocar esos datos en la ruta de la base de datos para que funcione en android)
+//127.0.0.1:3000 (colocar esos datos en la ruta de la base de datos para que funcione en pc)
