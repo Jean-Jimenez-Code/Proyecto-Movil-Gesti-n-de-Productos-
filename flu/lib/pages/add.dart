@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:convert';
+
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class Add extends StatefulWidget {
@@ -16,36 +17,64 @@ String? image64;
 String? nombreim;
 
 class _AddState extends State<Add> {
-  TextEditingController nombre = TextEditingController(); //lo que hace que se pueda guardar lo que se ingrese en nombre
-  TextEditingController cantidad = TextEditingController();
-  TextEditingController precio = TextEditingController();
-
+  
+  bool _showText = false;
+  final _formKey = GlobalKey<FormState>();
+  bool _buttonEnabled = false;
+  final _textFieldControllers = [  TextEditingController(),  TextEditingController(),  TextEditingController(),];
+  
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
-      title: const Text("agregar"),
+      title: const Text("AGREGAR"),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(children: [
         TextField(//como el input , para ingresar datos
-          controller: nombre, //para que la informacion que coloque el usuario se guarde en este controller
-          decoration: InputDecoration(labelText: "nombre"),//el campo que diga nombre
+          decoration: InputDecoration(labelText: "Nombre"),//el campo que diga nombre
+          controller: _textFieldControllers[0],//para que la informacion que coloque el usuario se guarde en este controller
+          onChanged: (value) {
+            setState(() {
+              _buttonEnabled = _textFieldControllers.every((c) => c.text.isNotEmpty);
+            });
+          },
         ),
+        
         TextField(
-          controller:cantidad ,
-          decoration: InputDecoration(labelText: "cantidad"),
+          controller: _textFieldControllers[1],//para que la informacion que coloque el usuario se guarde en este controller
+          onChanged: (value) {
+            setState(() {
+              _buttonEnabled = _textFieldControllers.every((c) => c.text.isNotEmpty);
+            });
+          },
+          decoration: InputDecoration(labelText: "Cantidad"),
           keyboardType: TextInputType.number,//que solo se muestre el teclado de numeros
           ),
         TextField(
-          controller:precio ,
-          decoration: InputDecoration(labelText: "precio"),
+          controller: _textFieldControllers[2],//para que la informacion que coloque el usuario se guarde en este controller
+          onChanged: (value) {
+            setState(() {
+              _buttonEnabled = _textFieldControllers.every((c) => c.text.isNotEmpty);
+            });
+          },
+          decoration: InputDecoration(labelText: "Precio"),
           keyboardType: TextInputType.number,
           //keyboardType: TextInputType.number,//para que se ingresen solo numeros
           ),
-        ElevatedButton(child: const Text("imagen"),
+        const SizedBox(
+                  height: 24,
+                ),  
+        const Text('Añada una imagen desde la galeria o camara'),
+        const SizedBox(
+                  height: 14,
+                ),  
+        ElevatedButton(child: const Text("Camara"),
         onPressed: () async {
+              
               // Carga la imagen desde camara
               var picture = await ImagePicker().pickImage(source: ImageSource.camera);//al precionar el boton este ira a la camara para seleccionar una foto
               if (picture == null) {
@@ -75,7 +104,10 @@ class _AddState extends State<Add> {
               nombreim =image64;//se guarda la cadena en la variable nombreim
           },
         ),
-        ElevatedButton(child: const Text("galeria"),
+        const SizedBox(
+                  height: 24,
+                ),
+        ElevatedButton(child: const Text("Galeria"),
         onPressed: () async {
               // Carga la imagen desde la galería
               var picture = await ImagePicker().pickImage(source: ImageSource.gallery);//al precionar el boton este ira a la galeria para seleccionar una foto
@@ -102,21 +134,35 @@ class _AddState extends State<Add> {
               // Codifica la imagen comprimida en base64
               final base64 = base64Encode(compressedImage);//se transforma la imagen ya comprimida a base64
               String image64 = "data:image/$format;base64,$base64";//se crea la cadena final de base64
-              nombreim =image64;//se guarda la cadena en la variable nombreim
+              nombreim = image64;//se guarda la cadena en la variable nombreim
           },
         ),
-        ElevatedButton(
-          child: const Text("enviar"),
-            onPressed:(){  //el boton de enviar
-              var data = { //para usar los datos
-              "nombre":nombre.text,
-              "cantidad":cantidad.text,
-              "precio":precio.text
+        const SizedBox(
+                  height: 24,
+                ),
+        ElevatedButton (
+          onPressed:_buttonEnabled ? (){  //el boton de enviar            
+            var data = { //para usar los datos
+            "nombre":_textFieldControllers[0].text,
+            "cantidad":_textFieldControllers[1].text,
+            "precio":_textFieldControllers[2].text
+            
             };
             dioConect(nombreim,data);//los datos guardados en nombreim y data se envian a dioConect para enviarlos a la base de datos
-            print(nombreim);   //para ver si funciona en la consola de depuracion
-        } ,
-        ),
+            print(nombreim); 
+            setState(() {
+            _showText = true;
+            });  //para ver si funciona en la consola de depuracion
+          }: null,
+          child: const Text("Enviar"),
+          ),
+        const SizedBox(
+                  height: 14,
+                ),  
+        _showText ? const Text('Se ha Enviado Correctamente') : Container(),
+        const SizedBox(
+                  height: 24,
+                ),
         images != null
         ? Image.file(//mostrar la imagen de flutter
           images!,
@@ -135,7 +181,7 @@ class _AddState extends State<Add> {
 }
 
 
-void dioConect( image64, data)async {//resivir image64 y data del boton
+void dioConect( image64, data)async {//recibir image64 y data del boton
   
 Dio dio = Dio();
 
@@ -147,5 +193,5 @@ Dio dio = Dio();
   },).timeout(const Duration(seconds: 50));
   print(response.data);
 }
-//10.0.2.2:3000  (colocar esos datos en la ruta de la base de datos para que funcione en android)
+//10.0.2.2:3000  (colocar esos datos en la ruta de la base de datos para que funcione en android(Emulador))
 //127.0.0.1:3000 (colocar esos datos en la ruta de la base de datos para que funcione en pc)

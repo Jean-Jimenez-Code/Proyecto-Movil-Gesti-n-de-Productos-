@@ -36,7 +36,7 @@ class _TodoListState extends State<TodoList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      title: const Text("Lista"),
+      title: const Text("LISTA"),
       ),
       
       body: Center(
@@ -77,7 +77,7 @@ class _TodoListState extends State<TodoList> {
               setState(() {
               entries.removeAt(index);//quitara el elemento segun la posicion
             });
-         },),],          
+         },),], 
         )
       );
       });
