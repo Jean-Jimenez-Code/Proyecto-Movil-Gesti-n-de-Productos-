@@ -15,5 +15,5 @@ Para la Ejecucion
 10.0.2.2:3000  [Por Defecto] (colocar esos datos en la ruta (en lista.dart y add.dart) de la base de datos para que funcione en android(Emulador))  
 127.0.0.1:3000 (colocar esos datos en la ruta (en lista.dart y add.dart) de la base de datos para que funcione en pc(Chrome y Windows)  
 
-Backend(Usa): Npm, Mongoose, cookie-parser, cors y morgan.
+Backend(Usa): Npm, Mongoose, cookie-parser, cors y morgan.  
 Frontend(Usa): Paquetes incluidos e implementados, Permiso de Camara en (..\flu\android\app\src\main\AndroidManifest.xml)
