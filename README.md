@@ -2,7 +2,7 @@
 
 Grupo 1  
 Backend-Flutter  
-Aplicación Movil - Gestion de Productos 
+Aplicación Movil
 
 APK:  
 https://github.com/Jean-Jimenez-Code/Proyecto-Movil-Gestion-de-Productos/blob/main/app-release.apk  
