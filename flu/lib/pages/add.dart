@@ -81,7 +81,6 @@ class _AddState extends State<Add> {
                 // Si no se ha seleccionado ninguna imagen, no hacemos nada
                 return;
               }
-
               // Comprime la imagen
               var compressedImage;
               String format = picture.path.split('.').last;
