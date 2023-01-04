@@ -1,3 +1,10 @@
+/// Proyecto-Movil-Gestion-de-Productos
+/// Grupo 1
+/// Integrantes: Jean Jimenez - Jaime Gutierrez - Daniel Lara Salas - Sebastian Urrutia
+/// Version:1.0.0
+/// Github:https://github.com/Jean-Jimenez-Code/Proyecto-Movil-Gestion-de-Productos
+/// Aspectos Tecnicos En https://github.com/Jean-Jimenez-Code/Proyecto-Movil-Gestion-de-Productos/blob/main/README.md
+
 //Se importan módulos y paquetes
 import 'package:flu/pages/opc.dart';
 import 'package:flutter/material.dart';
