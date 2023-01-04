@@ -1,48 +1,49 @@
+//Se importan módulos y paquetes
 import 'package:flu/pages/opc.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {//para iniciar la app
-  runApp(const MyApp());//el nombre del widget
+void main() {//Se define la Funcion main
+  runApp(const MyApp());//Se llama a la instancia de MyApp
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {//Se declara la clase la Clase Myapp, es subclase de la clase StatelessWidget de Flutter
+  const MyApp({super.key});//Se llama al constructor de la clase padre 
   
 @override
- Widget build(BuildContext context) {
-  return MaterialApp(//el diseño de la pag
+ Widget build(BuildContext context) {//Se define el método build
+  return MaterialApp(//Se devuelve la instancia de MaterialApp, y configuraciones para aplicacion
       title: 'Flutter Demo',
       theme: ThemeData(fontFamily: 'Arvo',
       primarySwatch: Colors.teal
     ),
   home: Scaffold(
-  appBar: AppBar(title: const Text('BUBBLES')),
+  appBar: AppBar(title: const Text('BUBBLES')),//Barra de la aplicacion y su Titulo
   
-  body: const Inicio()));//mostrara el contenido del widget Inicio 
+  body: const Inicio()));//Se muestra el contenido del widget Inicio 
  }
 }
 
-class Inicio extends StatefulWidget{
+class Inicio extends StatefulWidget{//Se declara la clase de Inicio
   const Inicio({super.key});
 
   @override
-  State<Inicio>createState()=> _Inicio();//hacemos un llamado a _Inicio que es lo que tendra el contenido
+  State<Inicio>createState()=> _Inicio();//Hacemos un llamado a _Inicio que es lo que tendra el contenido
 }
 
-class _Inicio extends State<Inicio> {
+class _Inicio extends State<Inicio> {//Se usa State con el parametro Inicio
    final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(//para la posicion del contenido
+      body: Center(//Posicion del contenido
       
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,//que se coloque en el centro
+          mainAxisAlignment: MainAxisAlignment.center,//Se coloque en el centro
           
           children: [
-             Text(
+             Text(//Muestra texto en la aplicación
                   "BUBBLES",
                   style: GoogleFonts.arvo(
                       fontWeight: FontWeight.bold,
@@ -50,7 +51,7 @@ class _Inicio extends State<Inicio> {
                       color: Colors.teal),
                 ),
             
-            TextField(
+            TextField(//Caja de texto en la aplicacion y configuraciones
               obscureText: true,
               controller: _passwordController,
               textAlign: TextAlign.center,
@@ -59,7 +60,7 @@ class _Inicio extends State<Inicio> {
               labelText: 'Contraseña',              
               ),
             ),
-            const SizedBox(
+            const SizedBox(//Separa los elementos
                   height: 40,
                 ),
            ElevatedButton( child: const Text("Ingresar"),//el boton , y como se llamara el boton
@@ -71,17 +72,17 @@ class _Inicio extends State<Inicio> {
               )
              }
           }),
-          const SizedBox(
+          const SizedBox(//Separa los elementos de manera auxiliar
                   height: 40,
                 ),
-          Text(
+          Text(//Texto
                   "Bienvenido, a la App de Gestion de Productos de Limpieza",
                   style: GoogleFonts.arvo(
                       fontSize: 30,
                       color: Colors.teal),
                       textAlign: TextAlign.center,
                 ),               
-          const Image(
+          const Image(//Imagen en el inicio
           width: 50,
           height: 50,
           fit: BoxFit.contain,

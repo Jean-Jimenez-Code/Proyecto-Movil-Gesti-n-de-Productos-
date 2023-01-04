@@ -1,3 +1,4 @@
+//Se importan módulos y paquetes
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
@@ -45,7 +46,8 @@ class _AddState extends State<Add> {
         ),
         
         TextField(
-          controller: _textFieldControllers[1],//para que la informacion que coloque el usuario se guarde en este controller
+          controller: _textFieldControllers[1],//Para que la informacion que coloque el usuario 
+          //se guarde en este controller (Cantidad)
           onChanged: (value) {
             setState(() {
               _buttonEnabled = _textFieldControllers.every((c) => c.text.isNotEmpty);
@@ -55,7 +57,8 @@ class _AddState extends State<Add> {
           keyboardType: TextInputType.number,//que solo se muestre el teclado de numeros
           ),
         TextField(
-          controller: _textFieldControllers[2],//para que la informacion que coloque el usuario se guarde en este controller
+          controller: _textFieldControllers[2],//para que la informacion que coloque el usuario
+          // se guarde en este controller (Precio)
           onChanged: (value) {
             setState(() {
               _buttonEnabled = _textFieldControllers.every((c) => c.text.isNotEmpty);
@@ -73,14 +76,14 @@ class _AddState extends State<Add> {
                   height: 14,
                 ),  
         ElevatedButton(child: const Text("Camara"),
-        onPressed: () async {
-              
+        onPressed: () async {              
               // Carga la imagen desde camara
               var picture = await ImagePicker().pickImage(source: ImageSource.camera);//al precionar el boton este ira a la camara para seleccionar una foto
               if (picture == null) {
                 // Si no se ha seleccionado ninguna imagen, no hacemos nada
                 return;
               }
+
               // Comprime la imagen
               var compressedImage;
               String format = picture.path.split('.').last;
@@ -90,7 +93,7 @@ class _AddState extends State<Add> {
                   minWidth: 200,
                   minHeight: 200,
                 );
-              } else if (format == "jpg" || format == "jpeg") {
+              } else if (format == "jpg" || format == "jpeg") {//si la imagen es formato jpg o jpeg se comprimira para transformarla en base64
                 compressedImage = await FlutterImageCompress.compressWithList(
                   File.fromUri(Uri.file(picture.path)).readAsBytesSync(),
                   minWidth: 200,
@@ -103,7 +106,7 @@ class _AddState extends State<Add> {
               nombreim =image64;//se guarda la cadena en la variable nombreim
           },
         ),
-        const SizedBox(
+        const SizedBox(//Separa los elementos
                   height: 24,
                 ),
         ElevatedButton(child: const Text("Galeria"),
@@ -136,7 +139,7 @@ class _AddState extends State<Add> {
               nombreim = image64;//se guarda la cadena en la variable nombreim
           },
         ),
-        const SizedBox(
+        const SizedBox(//Separa los elementos
                   height: 24,
                 ),
         ElevatedButton (
@@ -151,19 +154,19 @@ class _AddState extends State<Add> {
             print(nombreim); 
             setState(() {
             _showText = true;
-            });  //para ver si funciona en la consola de depuracion
+            });  //Para saber si funciona en la consola de depuracion
           }: null,
           child: const Text("Enviar"),
           ),
-        const SizedBox(
+        const SizedBox(//Separa los elementos
                   height: 14,
                 ),  
         _showText ? const Text('Se ha Enviado Correctamente') : Container(),
-        const SizedBox(
+        const SizedBox(//Separa los elementos
                   height: 24,
                 ),
         images != null
-        ? Image.file(//mostrar la imagen de flutter
+        ? Image.file(//Mostrar la imagen de flutter
           images!,
           width: 200,
           height: 200,
