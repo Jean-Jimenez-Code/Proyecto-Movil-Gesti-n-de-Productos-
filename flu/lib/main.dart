@@ -35,8 +35,8 @@ class _Inicio extends State<Inicio> {//Se usa State con el parametro Inicio
    final _passwordController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) {//Se define el método build
+    return Scaffold(//Proporcionar un área de contenido 
       body: Center(//Posicion del contenido
       
         child: Column(
