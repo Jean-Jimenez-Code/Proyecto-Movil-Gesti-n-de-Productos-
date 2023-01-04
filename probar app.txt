@@ -1,4 +1,4 @@
-probar aplicacion en simulador android:
+Probar aplicacion en simulador android:
 1-abrir simulador de telefono desde visual studio.para esto puede hacer lo siguiente:
     1.ir a la pestaña de view y seleccionar command palette.
     2.buscar(escribir) Flutter:Select Device.
