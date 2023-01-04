@@ -2,9 +2,9 @@
 
 Grupo 1  
 Backend-Flutter  
-Aplicación Movil  
+Aplicación Movil - Gestion de Productos 
 
-APK: 
+APK:  
 https://github.com/Jean-Jimenez-Code/Proyecto-Movil-Gestion-de-Productos/blob/main/app-release.apk  
 Contraseña para la Administración: 12345  
 https://github.com/Jean-Jimenez-Code/Proyecto-Movil-Gestion-de-Productos/blob/main/Codigo%20de%20la%20Administracion%20de%20APP%20Empresa.txt  
